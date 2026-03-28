@@ -281,14 +281,6 @@ const styles = {
     overflow: "hidden",
     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
   },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    backgroundColor: "white",
-    borderRadius: "8px",
-    overflow: "hidden",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-  },
   th: {
     padding: "1rem",
     textAlign: "left",
