@@ -26,7 +26,7 @@ const Review = ({ productId, onReviewAdded }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `http://localhost:5000/api/sarees/${productId}/reviews`,
+        `https://saree-store-api.onrender.com/api/sarees/${productId}/reviews`,
         { rating, comment },
         { headers: { Authorization: `Bearer ${token}` } }
       );

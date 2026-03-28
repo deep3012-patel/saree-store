@@ -10,7 +10,7 @@ const RelatedProducts = ({ productId, addToCart }) => {
     const fetchRelated = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/sarees/${productId}/related`,
+          `https://saree-store-api.onrender.com/api/sarees/${productId}/related`,
         );
         setProducts(res.data.data);
       } catch (error) {

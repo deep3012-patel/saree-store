@@ -125,7 +125,7 @@ const Checkout = ({ cart }) => {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/orders",
+        "https://saree-store-api.onrender.com/api/orders",
         orderData,
         {
           headers: { Authorization: `Bearer ${token}` },

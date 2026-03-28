@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async (token) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/auth/profile", {
+      const res = await axios.get("https://saree-store-api.onrender.com/api/auth/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(res.data.data);
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       console.log("📝 Register attempt:", { name, email });
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://saree-store-api.onrender.com/api/auth/register",
         {
           name,
           email,
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
       console.log("🔑 Login attempt:", { email });
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://saree-store-api.onrender.com/api/auth/login",
         {
           email,
           password,

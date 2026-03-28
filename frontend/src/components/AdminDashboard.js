@@ -17,10 +17,10 @@ const AdminDashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const [statsRes, ordersRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/orders/admin/stats", {
+        axios.get("https://saree-store-api.onrender.com/api/orders/admin/stats", {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://localhost:5000/api/orders/admin/orders", {
+        axios.get("https://saree-store-api.onrender.com/api/orders/admin/orders", {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -43,7 +43,7 @@ const AdminDashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/api/orders/admin/orders/${orderId}/status`,
+        `https://saree-store-api.onrender.com/api/orders/admin/orders/${orderId}/status`,
         { status, note: `Status updated to ${status} by admin` },
         { headers: { Authorization: `Bearer ${token}` } },
       );
