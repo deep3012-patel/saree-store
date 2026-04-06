@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run vercel-build",
+  "buildCommand": "npm run prebuild && npm run build",
   "outputDirectory": "build",
   "devCommand": "npm start",
-  "installCommand": "npm install --force",
+  "installCommand": "npm install",
   "framework": "create-react-app"
 }
