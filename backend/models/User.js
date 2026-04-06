@@ -1,25 +1,35 @@
 ﻿const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Name is required"],
+      trim: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
       unique: true,
       lowercase: true,
+      trim: true,
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
     },
     role: {
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+    address: {
+      street: { type: String, default: "" },
+      city: { type: String, default: "" },
+      state: { type: String, default: "" },
+      pincode: { type: String, default: "" },
+      phone: { type: String, default: "" },
     },
   },
   {
@@ -27,6 +37,26 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-// NO PRE-SAVE HOOK HERE! Password hashing is done in controller.
+// Hash password before saving
+userSchema.pre("save", async function (next) {
+  const user = this;
+
+  if (!user.isModified("password")) {
+    return next();
+  }
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Compare password method
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = mongoose.model("User", userSchema);

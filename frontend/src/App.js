@@ -12,7 +12,8 @@ import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Orders from "./pages/Orders";
-import AdminDashboard from './components/AdminDashboard';  // ✅ Already imported
+import AdminDashboard from "./components/AdminDashboard"; // ✅ Already imported
+import Profile from "./pages/Profile";
 
 function AppContent() {
   const [cart, setCart] = useState([]);
@@ -27,13 +28,11 @@ function AppContent() {
   }, [cart]);
 
   const addToCart = (product, quantity = 1) => {
-    setCart(prev => {
-      const exists = prev.find(i => i._id === product._id);
+    setCart((prev) => {
+      const exists = prev.find((i) => i._id === product._id);
       if (exists) {
-        return prev.map(i => 
-          i._id === product._id 
-            ? { ...i, quantity: i.quantity + quantity } 
-            : i
+        return prev.map((i) =>
+          i._id === product._id ? { ...i, quantity: i.quantity + quantity } : i,
         );
       }
       return [...prev, { ...product, quantity: quantity }];
@@ -82,7 +81,9 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/orders" element={<Orders />} />
-          
+
+          <Route path="/profile" element={<Profile />} />
+
           {/* ========== ADD THIS ADMIN ROUTE ========== */}
           <Route path="/admin" element={<AdminDashboard />} />
           {/* ========================================= */}

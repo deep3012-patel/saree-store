@@ -135,3 +135,51 @@ exports.logout = async (req, res) => {
     message: "Logged out successfully",
   });
 };
+
+// ========== UPDATE PROFILE ==========
+exports.updateProfile = async (req, res) => {
+  try {
+    const { name, email, address } = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Update fields if provided
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (address) {
+      user.address = {
+        street: address.street || user.address?.street || "",
+        city: address.city || user.address?.city || "",
+        state: address.state || user.address?.state || "",
+        pincode: address.pincode || user.address?.pincode || "",
+        phone: address.phone || user.address?.phone || "",
+      };
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

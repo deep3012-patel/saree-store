@@ -47,55 +47,95 @@ const Products = ({ addToCart }) => {
     setLoading(false);
   };
 
+  // Responsive styles
+  const styles = {
+    container: {
+      maxWidth: "1200px",
+      margin: "0 auto",
+      padding: "1rem",
+    },
+    title: {
+      textAlign: "center",
+      color: "#9b2c1d",
+      marginBottom: "1.5rem",
+      fontSize: "clamp(1.5rem, 5vw, 2rem)",
+    },
+    filtersContainer: {
+      display: "flex",
+      gap: "0.8rem",
+      marginBottom: "2rem",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    searchInput: {
+      padding: "0.6rem",
+      border: "1px solid #ddd",
+      borderRadius: "4px",
+      width: "clamp(150px, 40vw, 200px)",
+      fontSize: "0.9rem",
+    },
+    priceInput: {
+      padding: "0.6rem",
+      border: "1px solid #ddd",
+      borderRadius: "4px",
+      width: "clamp(80px, 20vw, 100px)",
+      fontSize: "0.9rem",
+    },
+    searchBtn: {
+      padding: "0.6rem 1rem",
+      background: "#9b2c1d",
+      color: "white",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "0.9rem",
+    },
+    filterBtn: {
+      padding: "0.6rem 1rem",
+      background: "#666",
+      color: "white",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "0.9rem",
+    },
+    grid: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+      gap: "1.5rem",
+    },
+    loadingText: {
+      textAlign: "center",
+      padding: "3rem",
+      fontSize: "1.2rem",
+      color: "#666",
+    },
+    noProducts: {
+      textAlign: "center",
+      padding: "3rem",
+      color: "#666",
+    },
+  };
+
   if (loading) {
-    return (
-      <div style={{ textAlign: "center", padding: "4rem", fontSize: "1.2rem" }}>
-        Loading beautiful sarees...
-      </div>
-    );
+    return <div style={styles.loadingText}>Loading beautiful sarees...</div>;
   }
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
-      <h1
-        style={{ textAlign: "center", color: "#9b2c1d", marginBottom: "2rem" }}
-      >
-        Our Beautiful Collection
-      </h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Our Beautiful Collection</h1>
 
-      {/* Filters */}
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginBottom: "2rem",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      {/* Filters Section */}
+      <div style={styles.filtersContainer}>
         <input
           type="text"
           placeholder="Search sarees..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "0.5rem",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-            width: "200px",
-          }}
+          style={styles.searchInput}
         />
-        <button
-          onClick={handleSearch}
-          style={{
-            padding: "0.5rem 1rem",
-            background: "#9b2c1d",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={handleSearch} style={styles.searchBtn}>
           Search
         </button>
 
@@ -104,54 +144,28 @@ const Products = ({ addToCart }) => {
           placeholder="Min ₹"
           value={minPrice}
           onChange={(e) => setMinPrice(e.target.value)}
-          style={{
-            padding: "0.5rem",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-            width: "100px",
-          }}
+          style={styles.priceInput}
         />
-        <span>-</span>
+        <span style={{ color: "#666" }}>-</span>
         <input
           type="number"
           placeholder="Max ₹"
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
-          style={{
-            padding: "0.5rem",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-            width: "100px",
-          }}
+          style={styles.priceInput}
         />
-        <button
-          onClick={handlePriceFilter}
-          style={{
-            padding: "0.5rem 1rem",
-            background: "#666",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={handlePriceFilter} style={styles.filterBtn}>
           Filter
         </button>
       </div>
 
       {/* Products Grid */}
       {products.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "4rem" }}>
+        <div style={styles.noProducts}>
           No sarees found. Add some products to your database!
         </div>
       ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "2rem",
-          }}
-        >
+        <div style={styles.grid}>
           {products.map((product) => (
             <ProductCard
               key={product._id}
